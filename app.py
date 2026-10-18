@@ -53,18 +53,37 @@ apply_rtl()
 
 # --- Hero ---------------------------------------------------------------------
 lang = st.session_state.get("lang", "en")
-st.markdown(rtl_wrap(f"# {T('hero_title')}", lang), unsafe_allow_html=True)
-st.caption(T("hero_subtitle"))
+st.markdown(
+    rtl_wrap(
+        f"""
+<div class="aija-hero">
+  <span class="aija-hero-badge">{T('home_badge')}</span>
+  <h1 class="aija-hero-title">{T('hero_title')}</h1>
+  <p class="aija-hero-sub">{T('hero_subtitle')}</p>
+</div>
+""",
+        lang,
+    ),
+    unsafe_allow_html=True,
+)
 
-# --- How it works -------------------------------------------------------------
+# --- How it works (feature cards) ----------------------------------------------
 st.subheader(T("how_title"))
-col1, col2, col3 = st.columns(3, gap="large")
-with col1:
-    st.markdown(T("how_step1"))
-with col2:
-    st.markdown(T("how_step2"))
-with col3:
-    st.markdown(T("how_step3"))
+_steps = [
+    (T("home_card1_title"), T("home_card1_body")),
+    (T("home_card2_title"), T("home_card2_body")),
+    (T("home_card3_title"), T("home_card3_body")),
+]
+_cards_html = "".join(
+    f'<div class="aija-card"><span class="aija-card-num">{i}</span>'
+    f"<h3>{title}</h3><p>{body}</p></div>"
+    for i, (title, body) in enumerate(_steps, start=1)
+)
+st.markdown(
+    rtl_wrap(f'<div class="aija-cards">{_cards_html}</div>', lang),
+    unsafe_allow_html=True,
+)
+st.caption(T("home_cta_hint"))
 
 st.divider()
 

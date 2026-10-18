@@ -19,6 +19,7 @@ import streamlit as st
 from config.settings import SETTINGS
 from src.i18n import RTL_CSS, available_languages, is_rtl_language, translate
 from src.privacy import clear_session_state
+from src.theme import inject_theme
 from src.utils import get_logger
 
 logger = get_logger("ui_helpers")
@@ -50,7 +51,8 @@ def apply_rtl() -> None:
 
 
 def render_sidebar() -> None:
-    """Language selector, LLM status, privacy note, clear-data, navigation."""
+    """Shared theme, language selector, LLM status, privacy, navigation."""
+    inject_theme()
     with st.sidebar:
         codes = list(available_languages().keys())
         current = get_lang()

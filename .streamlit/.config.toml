@@ -1,0 +1,11 @@
+# Streamlit theme - matches the CSS design system in src/theme.py
+
+[theme]
+base = "light"
+primaryColor = "#4F46E5"
+backgroundColor = "#FFFFFF"
+secondaryBackgroundColor = "#F8FAFC"
+textColor = "#0F172A"
+
+[browser]
+gatherUsageStats = false
