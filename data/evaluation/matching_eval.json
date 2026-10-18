@@ -1,0 +1,59 @@
+{
+  "version": "1.0",
+  "description": "Small labeled dataset for evaluating the full matching pipeline with the real embedding model. Each case has a resume text, a job description, and expected behavior: matched/missing canonical skills, score bounds, and a match tier used for the ordering check (strong > medium > weak). Scores depend on the embedding model, so bounds are intentionally loose. Demonstration data, NOT a benchmark.",
+  "cases": [
+    {
+      "name": "strong_match_ml_engineer",
+      "expected": {
+        "tier": "strong",
+        "min_overall": 0.45,
+        "matched_skills": ["Python", "Scikit-learn", "SQL", "Docker"],
+        "missing_skills": []
+      },
+      "resume": "Ahmed Hassan\nahmed.hassan@email.com\n\nProfessional Summary\nMachine learning engineer with two years of applied experience in Python.\n\nTechnical Skills\nPython, scikit-learn, PyTorch, SQL, PostgreSQL, Docker, FastAPI, Git, pandas, numpy\n\nWork Experience\nMachine Learning Engineer - DataWorks (2023 - present)\n- Built churn prediction models with scikit-learn in Python, validated with cross-validation.\n- Served models through a FastAPI REST API and deployed with Docker.\n- Wrote SQL queries against PostgreSQL for feature extraction.\n\nProjects\nSemantic search prototype with sentence embeddings and cosine similarity.\n\nEducation\nB.Sc. Computer Science, Cairo University - 2022",
+      "job": "Job Title: Machine Learning Engineer\n\nResponsibilities\n- Build and deploy machine learning models.\n- Write data pipelines in Python and SQL.\n\nRequired qualifications\n- 2+ years of experience with Python.\n- Machine learning fundamentals including cross-validation and model evaluation.\n- Experience with scikit-learn.\n- SQL and PostgreSQL.\n- Docker for containerization.\n\nPreferred qualifications\n- FastAPI experience.\n- Sentence embeddings and semantic search."
+    },
+    {
+      "name": "medium_match_analyst_to_ml",
+      "expected": {
+        "tier": "medium",
+        "min_overall": 0.2,
+        "max_overall": 0.75,
+        "matched_skills": ["Python", "SQL"],
+        "missing_skills": ["Scikit-learn", "Docker"]
+      },
+      "resume": "Lina Farah\nlina.farah@email.com\n\nProfessional Summary\nData analyst moving toward machine learning.\n\nTechnical Skills\nPython, SQL, Pandas, Excel, Tableau, Data Visualization\n\nWork Experience\nData Analyst - Meridian Retail (2022 - present)\n- Analyzed sales data with Python and SQL; built Tableau dashboards.\n- Automated weekly reporting.\n\nEducation\nB.A. Economics, American University - 2021",
+      "job": "Job Title: Machine Learning Engineer\n\nResponsibilities\n- Build and deploy machine learning models.\n- Write data pipelines in Python and SQL.\n\nRequired qualifications\n- 2+ years of experience with Python.\n- Machine learning fundamentals including cross-validation and model evaluation.\n- Experience with scikit-learn.\n- SQL and PostgreSQL.\n- Docker for containerization.\n\nPreferred qualifications\n- FastAPI experience.\n- Sentence embeddings and semantic search."
+    },
+    {
+      "name": "weak_match_nurse",
+      "expected": {
+        "tier": "weak",
+        "max_overall": 0.35,
+        "missing_skills": ["Python", "Scikit-learn", "SQL", "Docker"]
+      },
+      "resume": "Omar Khalil\nomar.khalil@email.com\n\nProfessional Summary\nRegistered nurse with five years of clinical experience in patient care.\n\nWork Experience\nStaff Nurse - City Hospital (2019 - present)\n- Patient care, medication administration, care coordination.\n- Trained new nurses on documentation standards.\n\nEducation\nB.Sc. Nursing, University of Jordan - 2018",
+      "job": "Job Title: Machine Learning Engineer\n\nResponsibilities\n- Build and deploy machine learning models.\n- Write data pipelines in Python and SQL.\n\nRequired qualifications\n- 2+ years of experience with Python.\n- Machine learning fundamentals including cross-validation and model evaluation.\n- Experience with scikit-learn.\n- SQL and PostgreSQL.\n- Docker for containerization.\n\nPreferred qualifications\n- FastAPI experience.\n- Sentence embeddings and semantic search."
+    },
+    {
+      "name": "alias_resolution",
+      "expected": {
+        "tier": "medium",
+        "min_overall": 0.25,
+        "matched_skills": ["Scikit-learn", "PostgreSQL"]
+      },
+      "resume": "Maya Ali\nmaya.ali@email.com\n\nProfessional Summary\nJunior data scientist.\n\nTechnical Skills\nPython, sklearn, Postgres, NumPy\n\nWork Experience\nData Science Intern - Nova Analytics (2024)\n- Built classification models with sklearn in Python.\n- Queried Postgres for training data.\n\nEducation\nB.Sc. Statistics - 2023",
+      "job": "Job Title: Junior Data Scientist\n\nRequired qualifications\n- Python programming.\n- Experience with scikit-learn.\n- SQL and PostgreSQL.\n\nPreferred qualifications\n- Deep learning exposure."
+    },
+    {
+      "name": "preferred_vs_required",
+      "expected": {
+        "tier": "medium",
+        "min_overall": 0.15,
+        "missing_skills": ["Machine Learning", "SQL"]
+      },
+      "resume": "Tarek Nour\ntarek.nour@email.com\n\nProfessional Summary\nBackend developer exploring AI.\n\nTechnical Skills\nPython, FastAPI, Docker, Git, PostgreSQL\n\nWork Experience\nBackend Developer - Zeta Systems (2023 - present)\n- Built REST APIs with FastAPI and deployed with Docker.\n- Managed PostgreSQL schemas and migrations.\n\nEducation\nB.Sc. Computer Engineering - 2021",
+      "job": "Job Title: AI Engineer\n\nResponsibilities\n- Train and serve machine learning models.\n\nRequired qualifications\n- Machine learning fundamentals.\n- Python programming.\n- SQL.\n\nPreferred qualifications\n- REST API development with FastAPI.\n- Docker."
+    }
+  ]
+}

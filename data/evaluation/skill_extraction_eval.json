@@ -1,0 +1,76 @@
+{
+  "version": "1.0",
+  "description": "Small hand-labeled dataset for evaluating dictionary skill extraction. Expected skills use canonical taxonomy names (aliases in the text resolve to them). Samples 5 and 9 also guard word-boundary behavior (JavaScript must not produce Java; 'Research' must not produce R). This is demonstration data, NOT a benchmark.",
+  "samples": [
+    {
+      "label": "web_dev_snippet",
+      "text": "Experienced Python developer building web services with Django and PostgreSQL.",
+      "expected_skills": ["Python", "Django", "PostgreSQL"]
+    },
+    {
+      "label": "api_snippet",
+      "text": "Built REST APIs with FastAPI and tested them with pytest.",
+      "expected_skills": ["REST APIs", "FastAPI", "Unit Testing"]
+    },
+    {
+      "label": "vision_snippet",
+      "text": "Trained CNN models in TensorFlow for image classification tasks.",
+      "expected_skills": ["CNN", "TensorFlow", "Image Classification"]
+    },
+    {
+      "label": "alias_dedupe_snippet",
+      "text": "Used scikit-learn and sklearn interchangeably for classical ML experiments.",
+      "expected_skills": ["Scikit-learn", "Machine Learning"]
+    },
+    {
+      "label": "boundary_javascript",
+      "text": "JavaScript frontend development with React and Node.js services.",
+      "expected_skills": ["JavaScript", "Node.js"]
+    },
+    {
+      "label": "java_only",
+      "text": "Backend services written in Java with MySQL.",
+      "expected_skills": ["Java", "MySQL"]
+    },
+    {
+      "label": "aws_snippet",
+      "text": "Deployed inference jobs on AWS Lambda and stored artifacts in S3.",
+      "expected_skills": ["AWS", "AWS Lambda", "Amazon S3"]
+    },
+    {
+      "label": "dl_stack_snippet",
+      "text": "Machine learning engineer working with PyTorch, transformer models and Hugging Face Transformers.",
+      "expected_skills": ["Machine Learning", "PyTorch", "Transformers", "Hugging Face Transformers"]
+    },
+    {
+      "label": "boundary_r_and_stats",
+      "text": "Use R and Python for statistical analysis and data visualization.",
+      "expected_skills": ["R", "Python", "Statistics", "Data Visualization"]
+    },
+    {
+      "label": "go_snippet",
+      "text": "Wrote Go microservices communicating over REST endpoints.",
+      "expected_skills": ["Go", "Microservices", "REST APIs"]
+    },
+    {
+      "label": "nlp_snippet",
+      "text": "Built a named entity recognition model with spaCy for resume parsing.",
+      "expected_skills": ["Named Entity Recognition", "spaCy"]
+    },
+    {
+      "label": "database_snippet",
+      "text": "Wrote optimized SQL queries against PostgreSQL and added a Redis cache.",
+      "expected_skills": ["SQL", "PostgreSQL", "Redis"]
+    },
+    {
+      "label": "no_skills_negative",
+      "text": "Great communication skills and teamwork across departments.",
+      "expected_skills": []
+    },
+    {
+      "label": "rag_snippet",
+      "text": "Built a RAG pipeline with a vector database and LangChain for document search.",
+      "expected_skills": ["Retrieval-Augmented Generation", "Vector Databases", "LangChain"]
+    }
+  ]
+}

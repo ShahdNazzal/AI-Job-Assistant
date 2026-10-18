@@ -1,0 +1,43 @@
+Job Title: Junior AI Engineer
+
+About the role
+We are looking for a motivated junior AI engineer to join our applied AI team.
+You will help design, build and deploy machine-learning features for our
+customer-facing products, working closely with senior engineers and product
+managers.
+
+Responsibilities
+- Develop and maintain machine learning models for text classification and
+  semantic search.
+- Build data processing pipelines with Python and SQL.
+- Serve models through REST APIs and monitor their performance.
+- Collaborate on code reviews, testing and documentation.
+- Help evaluate and integrate LLM-based features such as retrieval-augmented
+  generation.
+
+Required qualifications
+- Bachelor's degree in Computer Science, Engineering or a related field.
+- 1+ years of experience with Python for data or machine learning work
+  (projects and internships count).
+- Solid understanding of machine learning fundamentals, including model
+  evaluation and cross-validation.
+- Experience with scikit-learn and at least one deep learning framework
+  such as PyTorch or TensorFlow.
+- Working knowledge of SQL and relational databases.
+- Familiarity with Git-based collaboration.
+- Basic experience with REST API development in Python (e.g. FastAPI or Flask).
+
+Preferred qualifications
+- Exposure to NLP techniques: embeddings, transformers, Hugging Face
+  Transformers library.
+- Knowledge of Retrieval-Augmented Generation (RAG) concepts and vector
+  databases such as FAISS or pgvector.
+- Experience with Docker and CI/CD workflows.
+- Familiarity with AWS services (S3, Lambda) or another cloud platform.
+- Knowledge of MLOps practices such as experiment tracking and model
+  deployment.
+
+Benefits
+- Competitive salary and equity.
+- Annual learning budget and conference support.
+- Hybrid work policy based in our Seattle office.

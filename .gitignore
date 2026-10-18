@@ -1,0 +1,42 @@
+# Secrets
+.env
+*.key
+secrets*.json
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Model caches and weights
+models_cache/
+*.safetensors
+*.bin
+*.onnx
+*.pt
+
+# Streamlit
+.streamlit/secrets.toml
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Local exports (generated at runtime by users)
+exports/

@@ -1,0 +1,50 @@
+Sarah Chen
+sarah.chen.dev@email.com | +1 (555) 210-4477 | linkedin.com/in/sarahchen-ai | github.com/sarahchen
+
+Professional Summary
+Computer science graduate focused on machine learning and natural language
+processing. Experienced with Python, scikit-learn and PyTorch through academic
+projects and two internships. Looking for a junior machine learning engineer role.
+
+Technical Skills
+Programming: Python, SQL, Bash
+Machine Learning: scikit-learn, XGBoost, feature engineering, model evaluation
+Deep Learning: PyTorch, CNN, transfer learning
+NLP: text classification, sentence embeddings, Hugging Face Transformers
+Data: Pandas, NumPy, Matplotlib, Jupyter
+Tools: Git, GitHub, Docker, FastAPI, pytest
+
+Education
+B.Sc. Computer Science, University of Washington, Seattle - 2024
+Relevant coursework: Machine Learning, Data Structures, Statistics, Databases
+
+Work Experience
+
+Machine Learning Intern - Cascadia Analytics, Seattle (Jun 2024 - Sep 2024)
+- Built a customer churn prediction pipeline in Python with scikit-learn and
+  XGBoost, covering feature engineering, 5-fold cross-validation and model
+  evaluation with precision, recall and F1.
+- Containerized the training job with Docker so the team could reproduce runs
+  on any workstation.
+- Wrote pytest unit tests for data validation and preprocessing functions.
+
+Data Science Intern - Rainier Retail Group, remote (Jun 2023 - Aug 2023)
+- Analyzed two years of sales data with Pandas and SQL; delivered weekly
+  dashboards in Matplotlib to the merchandising team.
+- Automated report generation with Bash scripts, saving analysts several
+  hours per week.
+
+Projects
+
+Sentiment Analysis of Product Reviews
+- Fine-tuned a Hugging Face Transformers model (DistilBERT) on an Amazon
+  reviews dataset; compared it against a TF-IDF + logistic regression baseline.
+- Evaluated with stratified cross-validation and error analysis on misclassified
+  examples.
+
+Semantic Search over Documentation
+- Built a semantic search demo with sentence-transformers embeddings and
+  cosine similarity in NumPy; served results through a small FastAPI endpoint.
+
+Certifications
+- AWS Certified Cloud Practitioner (2024)

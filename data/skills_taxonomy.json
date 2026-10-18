@@ -1,0 +1,277 @@
+{
+  "version": "1.0",
+  "description": "Curated skill taxonomy for AI Job Assistant. Canonical names are globally unique. Aliases are matched with word-boundary protection. 'related' powers transferable-skill suggestions. 'learning_hints' power gap-analysis guidance. 'case_sensitive' is used for short ambiguous names such as Go, R and C.",
+  "categories": [
+    {
+      "id": "programming_languages",
+      "label": "Programming Languages",
+      "skills": [
+        {"name": "Python", "aliases": ["python3"], "learning_hints": "Build small end-to-end scripts, then a data or API project; document them on GitHub.", "related": ["Pandas", "NumPy", "FastAPI"]},
+        {"name": "SQL", "learning_hints": "Practice SELECT/JOIN/GROUP BY on a public dataset, then window functions.", "related": ["PostgreSQL", "Data Analysis"]},
+        {"name": "Java", "learning_hints": "Rebuild a coursework project with clean OOP design and unit tests."},
+        {"name": "JavaScript", "aliases": ["JS"], "learning_hints": "Learn DOM basics, then fetch() against a public API."},
+        {"name": "TypeScript", "learning_hints": "Convert a small JavaScript project to TypeScript to learn typing."},
+        {"name": "C++", "learning_hints": "Practice STL containers and small algorithms; read a modern C++ guide."},
+        {"name": "C#", "learning_hints": "Build a small console or ASP.NET Core app."},
+        {"name": "C", "case_sensitive": true, "learning_hints": "Write small programs using pointers and manual memory management."},
+        {"name": "Go", "aliases": ["Golang"], "case_sensitive": true, "learning_hints": "Write a small concurrent worker with goroutines and channels."},
+        {"name": "R", "case_sensitive": true, "learning_hints": "Use tidyverse for an exploratory analysis of a public dataset.", "related": ["Data Analysis", "Statistics"]},
+        {"name": "MATLAB", "learning_hints": "Translate one numeric coursework solution from Python to MATLAB."},
+        {"name": "Bash", "aliases": ["Shell", "Shell scripting", "bash shell"], "learning_hints": "Automate one repetitive task on your machine with a shell script."},
+        {"name": "Scala", "learning_hints": "Learn immutable data handling, then a small Spark job.", "related": ["Apache Spark"]},
+        {"name": "Kotlin", "learning_hints": "Port a small Java utility to Kotlin."},
+        {"name": "PHP", "learning_hints": "Build a small CRUD website with input validation."}
+      ]
+    },
+    {
+      "id": "machine_learning",
+      "label": "Machine Learning",
+      "skills": [
+        {"name": "Machine Learning", "aliases": ["ML"], "learning_hints": "Study a classic course (e.g. Andrew Ng) and implement algorithms from scratch on small datasets.", "related": ["Scikit-learn", "Feature Engineering", "Model Evaluation"]},
+        {"name": "Supervised Learning", "learning_hints": "Train regression and classification baselines and compare them properly."},
+        {"name": "Unsupervised Learning", "aliases": ["Clustering"], "learning_hints": "Run k-means and DBSCAN on a customer dataset and interpret clusters."},
+        {"name": "Scikit-learn", "aliases": ["sklearn", "scikit learn"], "learning_hints": "Work through the official user guide; build Pipelines with ColumnTransformer.", "related": ["Python", "NumPy", "Pandas"]},
+        {"name": "Feature Engineering", "learning_hints": "Practice encoding, scaling and leakage-safe pipelines on tabular data."},
+        {"name": "Model Evaluation", "aliases": ["cross validation", "cross-validation"], "learning_hints": "Learn metrics beyond accuracy: precision, recall, F1, ROC-AUC and when each matters.", "related": ["Statistics"]},
+        {"name": "XGBoost", "learning_hints": "Enter a small Kaggle tabular competition with tuned gradient boosting."},
+        {"name": "LightGBM", "learning_hints": "Benchmark LightGBM against XGBoost on the same dataset."},
+        {"name": "CatBoost", "learning_hints": "Try CatBoost on categorical-heavy data."},
+        {"name": "Ensemble Methods", "aliases": ["bagging", "boosting"], "learning_hints": "Implement a simple voting ensemble manually before using libraries."},
+        {"name": "Time Series Analysis", "aliases": ["time series", "forecasting"], "learning_hints": "Forecast a seasonal dataset with baseline, ARIMA and gradient boosting models."},
+        {"name": "Recommender Systems", "aliases": ["recommendation systems", "recommender system"], "learning_hints": "Build a collaborative-filtering recommender on the MovieLens dataset."},
+        {"name": "Statistics", "aliases": ["statistical analysis", "hypothesis testing", "A/B Testing", "A/B testing"], "learning_hints": "Re-derive t-tests and confidence intervals; simulate them in Python.", "related": ["Data Analysis"]},
+        {"name": "Reinforcement Learning", "learning_hints": "Implement Q-learning on a gridworld before touching deep RL."}
+      ]
+    },
+    {
+      "id": "deep_learning",
+      "label": "Deep Learning",
+      "skills": [
+        {"name": "Deep Learning", "aliases": ["neural networks", "deep neural networks"], "learning_hints": "Implement a 2-layer network with NumPy, then reimplement it in PyTorch.", "related": ["PyTorch", "TensorFlow"]},
+        {"name": "PyTorch", "learning_hints": "Follow the official 60-minute blitz; train a CNN on CIFAR-10 end to end."},
+        {"name": "TensorFlow", "learning_hints": "Build and train a small Keras model, then export it for serving."},
+        {"name": "Keras", "learning_hints": "Use the Keras Sequential/Functional APIs on a tabular dataset."},
+        {"name": "CNN", "aliases": ["convolutional neural networks", "convolutional neural network"], "learning_hints": "Train an image classifier and visualize learned filters."},
+        {"name": "RNN", "aliases": ["recurrent neural networks", "LSTM", "GRU"], "learning_hints": "Build a character-level text generator to understand sequence models."},
+        {"name": "Transformers", "aliases": ["transformer architecture", "attention mechanism"], "learning_hints": "Read 'The Illustrated Transformer', then fine-tune a small one.", "related": ["Hugging Face Transformers", "NLP"]},
+        {"name": "Transfer Learning", "learning_hints": "Fine-tune a pretrained image model on a small custom dataset."},
+        {"name": "Model Fine-tuning", "aliases": ["fine-tuning", "finetuning", "PEFT", "LoRA", "QLoRA"], "learning_hints": "Fine-tune a small LLM with LoRA/PEFT on a domain dataset.", "related": ["Large Language Models", "Hugging Face Transformers"]},
+        {"name": "JAX", "learning_hints": "Rewrite a small NumPy model using jax.grad."},
+        {"name": "ONNX", "learning_hints": "Export a trained model to ONNX and run inference with onnxruntime."},
+        {"name": "Model Training", "aliases": ["training pipelines", "model optimization"], "learning_hints": "Learn LR schedules, mixed precision and debugging loss curves."}
+      ]
+    },
+    {
+      "id": "nlp",
+      "label": "Natural Language Processing",
+      "skills": [
+        {"name": "NLP", "aliases": ["natural language processing", "text mining"], "learning_hints": "Build one project per task type: classification, NER, search.", "related": ["Hugging Face Transformers", "Word Embeddings"]},
+        {"name": "Text Classification", "learning_hints": "Fine-tune a transformer on a sentiment dataset and compare with TF-IDF baselines."},
+        {"name": "Named Entity Recognition", "aliases": ["NER"], "learning_hints": "Train a custom NER model with spaCy on a small annotated set."},
+        {"name": "Sentiment Analysis", "learning_hints": "Analyze a product-review dataset end to end."},
+        {"name": "Word Embeddings", "aliases": ["word2vec", "GloVe", "fastText"], "learning_hints": "Train word2vec on a small corpus and inspect nearest neighbors."},
+        {"name": "Sentence Embeddings", "aliases": ["sentence transformers", "sentence-bert", "SBERT"], "learning_hints": "Build a semantic search demo with sentence-transformers.", "related": ["Semantic Similarity", "Vector Databases"]},
+        {"name": "Semantic Similarity", "aliases": ["cosine similarity"], "learning_hints": "Compare sentence pairs and study where embeddings fail."},
+        {"name": "Tokenization", "aliases": ["text preprocessing", "lemmatization", "stemming"], "learning_hints": "Compare tokenizers (BPE vs WordPiece) on the same text."},
+        {"name": "Topic Modeling", "aliases": ["LDA"], "learning_hints": "Run BERTopic and LDA on news headlines and compare coherence."},
+        {"name": "spaCy", "learning_hints": "Build a custom pipeline component for your own entities."},
+        {"name": "NLTK", "learning_hints": "Use NLTK to reproduce classic textbook NLP exercises."},
+        {"name": "Hugging Face Transformers", "aliases": ["huggingface", "transformers library", "HF transformers"], "learning_hints": "Fine-tune a small model with the Trainer API and publish it.", "related": ["Model Fine-tuning", "NLP"]},
+        {"name": "Question Answering", "learning_hints": "Implement extractive QA with a pretrained model, then evaluate it honestly."},
+        {"name": "Machine Translation", "learning_hints": "Evaluate an off-the-shelf MT system with BLEU on a parallel corpus."},
+        {"name": "Speech Processing", "aliases": ["ASR", "speech recognition", "TTS", "text to speech"], "learning_hints": "Transcribe short clips with Whisper and measure WER."}
+      ]
+    },
+    {
+      "id": "computer_vision",
+      "label": "Computer Vision",
+      "skills": [
+        {"name": "Computer Vision", "aliases": ["CV"], "learning_hints": "Build an image classifier, then an object detector; study failure cases.", "related": ["OpenCV", "CNN"]},
+        {"name": "OpenCV", "learning_hints": "Implement image filters and contours without deep learning first."},
+        {"name": "Image Classification", "learning_hints": "Fine-tune ResNet on a small custom dataset."},
+        {"name": "Object Detection", "aliases": ["YOLO"], "learning_hints": "Train YOLO on a public dataset and evaluate mAP."},
+        {"name": "Image Segmentation", "aliases": ["semantic segmentation", "U-Net"], "learning_hints": "Train U-Net on a medical or satellite dataset."},
+        {"name": "OCR", "aliases": ["optical character recognition", "Tesseract"], "learning_hints": "Build a document-scanning pipeline and measure character accuracy."},
+        {"name": "Video Analysis", "aliases": ["video processing"], "learning_hints": "Track objects across frames with OpenCV or a pretrained tracker."},
+        {"name": "Multimodal AI", "aliases": ["vision-language models", "VLM", "CLIP"], "learning_hints": "Use CLIP for zero-shot classification and image search."}
+      ]
+    },
+    {
+      "id": "generative_ai",
+      "label": "Generative AI",
+      "skills": [
+        {"name": "Generative AI", "aliases": ["genai", "gen ai", "generative models"], "learning_hints": "Understand token prediction, sampling and temperature before building apps.", "related": ["Large Language Models", "Prompt Engineering"]},
+        {"name": "Prompt Engineering", "learning_hints": "Practice structured prompts with roles, constraints and examples; measure improvements.", "related": ["Large Language Models"]},
+        {"name": "AI Agents", "aliases": ["agents", "tool calling", "function calling", "agent frameworks"], "learning_hints": "Build a small agent that calls one tool reliably with validation."},
+        {"name": "LangChain", "learning_hints": "Reimplement a simple chain yourself to demystify the abstractions.", "related": ["Retrieval-Augmented Generation"]},
+        {"name": "LlamaIndex", "learning_hints": "Index a small document set and compare retrieval quality with plain embeddings."},
+        {"name": "Diffusion Models", "aliases": ["stable diffusion", "image generation"], "learning_hints": "Run a pretrained diffusion model and study guidance scales."},
+        {"name": "GANs", "aliases": ["generative adversarial networks"], "learning_hints": "Train a small DCGAN on MNIST."},
+        {"name": "Structured Output", "aliases": ["json mode", "pydantic validation", "schema validation"], "learning_hints": "Force JSON outputs from an LLM and validate them with Pydantic."},
+        {"name": "LLM Guardrails", "aliases": ["guardrails", "content filtering", "AI safety"], "learning_hints": "Add input/output validation and refusal handling to a chat app."},
+        {"name": "Synthetic Data", "aliases": ["data augmentation"], "learning_hints": "Generate and validate synthetic training examples; measure impact honestly."}
+      ]
+    },
+    {
+      "id": "llm_rag",
+      "label": "LLMs & RAG",
+      "skills": [
+        {"name": "Large Language Models", "aliases": ["LLM", "LLMs", "GPT", "OpenAI API", "chat completions"], "learning_hints": "Call an OpenAI-compatible API, then study token limits, cost and failure modes.", "related": ["Prompt Engineering", "Retrieval-Augmented Generation"]},
+        {"name": "Retrieval-Augmented Generation", "aliases": ["RAG", "RAG pipeline", "RAG pipelines"], "learning_hints": "Build a small RAG demo: chunk documents, embed, retrieve top-k, answer with citations.", "related": ["Vector Databases", "Sentence Embeddings", "Large Language Models"]},
+        {"name": "Vector Embeddings", "aliases": ["embeddings", "text embeddings", "embedding models"], "learning_hints": "Compare embedding models on a retrieval benchmark you build yourself."},
+        {"name": "Semantic Search", "aliases": ["vector search", "similarity search", "nearest neighbor search"], "learning_hints": "Implement cosine-similarity search in NumPy before using a vector DB.", "related": ["FAISS", "Vector Databases"]},
+        {"name": "Chunking Strategies", "aliases": ["document chunking", "text chunking"], "learning_hints": "Compare fixed-size vs heading-based chunking on retrieval quality."},
+        {"name": "RAG Evaluation", "aliases": ["RAGAS", "retrieval evaluation"], "learning_hints": "Measure retrieval precision and answer groundedness on labeled questions."},
+        {"name": "Context Windows", "aliases": ["token limits", "long context"], "learning_hints": "Study truncation effects; build a summarization map-reduce example."},
+        {"name": "Vector Databases", "aliases": ["vector db", "vector database"], "learning_hints": "Start with an in-memory index, then try a persistent store.", "related": ["FAISS", "pgvector"]},
+        {"name": "Model Quantization", "aliases": ["GGUF", "llama.cpp", "quantized models"], "learning_hints": "Quantize a small model and measure speed/quality trade-offs."}
+      ]
+    },
+    {
+      "id": "vector_databases",
+      "label": "Vector Databases",
+      "skills": [
+        {"name": "FAISS", "aliases": ["faiss index"], "learning_hints": "Build an exact index, then an IVF index; compare recall and speed.", "related": ["Vector Databases", "Semantic Search"]},
+        {"name": "Pinecone", "learning_hints": "Upload a small dataset and tune top-k for retrieval quality."},
+        {"name": "Weaviate", "learning_hints": "Try hybrid search with BM25 plus vectors."},
+        {"name": "Milvus", "learning_hints": "Deploy single-node Milvus and benchmark queries."},
+        {"name": "Qdrant", "learning_hints": "Use payload filters with vector search."},
+        {"name": "Chroma", "aliases": ["ChromaDB"], "learning_hints": "Persist a small collection and reload it across runs."},
+        {"name": "pgvector", "learning_hints": "Store embeddings in PostgreSQL and query with ORDER BY embedding <=> $1.", "related": ["PostgreSQL", "Vector Databases"]},
+        {"name": "Elasticsearch", "aliases": ["OpenSearch"], "learning_hints": "Compare BM25 and dense-vector retrieval on the same corpus."}
+      ]
+    },
+    {
+      "id": "backend_development",
+      "label": "Backend Development",
+      "skills": [
+        {"name": "Backend Development", "aliases": ["backend engineering", "server-side development"], "learning_hints": "Build a small service with auth, validation, tests and docs.", "related": ["REST APIs", "FastAPI"]},
+        {"name": "FastAPI", "learning_hints": "Serve an ML model behind FastAPI with Pydantic validation.", "related": ["REST APIs", "Pydantic"]},
+        {"name": "Flask", "learning_hints": "Build a small CRUD API with Flask and blueprints."},
+        {"name": "Django", "learning_hints": "Complete the official tutorial, then add a REST layer."},
+        {"name": "Microservices", "aliases": ["microservice architecture"], "learning_hints": "Split a monolith demo into two communicating services."},
+        {"name": "Authentication", "aliases": ["OAuth", "JWT", "OAuth2"], "learning_hints": "Implement JWT login end to end, including refresh tokens."},
+        {"name": "Async Programming", "aliases": ["asyncio", "async/await"], "learning_hints": "Convert blocking I/O calls to async and benchmark the difference."},
+        {"name": "WebSockets", "learning_hints": "Build a small real-time chat or progress-streaming endpoint."},
+        {"name": "System Design", "aliases": ["distributed systems", "scalability"], "learning_hints": "Design a URL shortener and a feed service; write the trade-offs down."},
+        {"name": "Message Queues", "aliases": ["RabbitMQ", "Celery"], "learning_hints": "Queue a slow ML job with Celery and poll for results."}
+      ]
+    },
+    {
+      "id": "rest_apis",
+      "label": "REST APIs",
+      "skills": [
+        {"name": "REST APIs", "aliases": ["REST", "RESTful APIs", "RESTful services", "API development"], "learning_hints": "Design resource endpoints, status codes and error bodies deliberately.", "related": ["FastAPI", "OpenAPI"]},
+        {"name": "API Design", "aliases": ["API architecture"], "learning_hints": "Write an OpenAPI spec first, then implement it."},
+        {"name": "OpenAPI", "aliases": ["Swagger", "swagger ui"], "learning_hints": "Publish interactive docs for one of your APIs."},
+        {"name": "Postman", "aliases": ["API testing"], "learning_hints": "Create a collection with tests for your own API."},
+        {"name": "API Security", "aliases": ["rate limiting", "CORS"], "learning_hints": "Add rate limiting and CORS configuration to a demo API."}
+      ]
+    },
+    {
+      "id": "databases",
+      "label": "Databases & SQL",
+      "skills": [
+        {"name": "PostgreSQL", "aliases": ["Postgres", "psql"], "learning_hints": "Model a small domain, then practice joins, indexes and EXPLAIN plans.", "related": ["SQL", "Database Design"]},
+        {"name": "MySQL", "learning_hints": "Port a PostgreSQL schema to MySQL and note the differences."},
+        {"name": "SQLite", "learning_hints": "Use SQLite for a local app; learn its concurrency limits."},
+        {"name": "MongoDB", "aliases": ["Mongo"], "learning_hints": "Store and query JSON documents; compare with a SQL design."},
+        {"name": "Redis", "learning_hints": "Add caching and rate-limit counters to a demo API."},
+        {"name": "Database Design", "aliases": ["data modeling", "schema design", "normalization"], "learning_hints": "Normalize a dataset to 3NF, then denormalize deliberately for reads."},
+        {"name": "Query Optimization", "aliases": ["query tuning", "indexing"], "learning_hints": "Speed up a slow query with indexes and measure before/after."},
+        {"name": "Data Warehousing", "aliases": ["Snowflake", "BigQuery", "star schema"], "learning_hints": "Build a star schema and simple OLAP queries on sample data."}
+      ]
+    },
+    {
+      "id": "cloud_computing",
+      "label": "Cloud & DevOps",
+      "skills": [
+        {"name": "Cloud Computing", "aliases": ["cloud platforms", "cloud services"], "learning_hints": "Use the free tier of one provider to host a small service.", "related": ["AWS", "Docker"]},
+        {"name": "AWS", "aliases": ["Amazon Web Services"], "learning_hints": "Deploy a containerized app on ECS or Lambda; set a billing alarm first.", "related": ["AWS Lambda", "Amazon S3"]},
+        {"name": "AWS Lambda", "aliases": ["Lambda functions"], "learning_hints": "Serve a small model behind API Gateway with Lambda."},
+        {"name": "Amazon S3", "aliases": ["S3"], "learning_hints": "Store and version model artifacts in S3 with lifecycle rules."},
+        {"name": "Amazon SageMaker", "aliases": ["SageMaker"], "learning_hints": "Train and deploy a sklearn model with SageMaker endpoints."},
+        {"name": "AWS Bedrock", "aliases": ["Bedrock", "Amazon Bedrock"], "learning_hints": "Call a hosted LLM via Bedrock with AWS signatures."},
+        {"name": "EC2", "aliases": ["EC2 instances"], "learning_hints": "Launch an instance, harden it, and deploy a demo service."},
+        {"name": "Azure", "aliases": ["Microsoft Azure"], "learning_hints": "Deploy an App Service demo with a managed database.", "related": ["Azure Machine Learning"]},
+        {"name": "Azure Machine Learning", "aliases": ["Azure ML", "AzureML"], "learning_hints": "Run a training job and register a model in Azure ML."},
+        {"name": "Azure OpenAI Service", "aliases": ["Azure OpenAI"], "learning_hints": "Call a deployed Azure OpenAI model with managed identity."},
+        {"name": "Azure AI Search", "aliases": ["Azure Cognitive Search"], "learning_hints": "Index documents with vector search profiles."},
+        {"name": "Azure Functions", "learning_hints": "Trigger a function from blob upload."},
+        {"name": "Google Cloud", "aliases": ["GCP", "Google Cloud Platform"], "learning_hints": "Deploy a Cloud Run service with a managed DB."},
+        {"name": "Docker", "aliases": ["containerization", "docker compose"], "learning_hints": "Containerize an ML API with a slim image and healthcheck."},
+        {"name": "Kubernetes", "aliases": ["K8s", "Helm"], "learning_hints": "Deploy two services with a Deployment and Service manifest locally (kind/minikube)."},
+        {"name": "CI/CD", "aliases": ["continuous integration", "continuous delivery", "GitHub Actions"], "learning_hints": "Add lint+test+build workflow to a repo and require it before merge."},
+        {"name": "Terraform", "aliases": ["infrastructure as code", "IaC"], "learning_hints": "Provision a bucket and a small VM declaratively."},
+        {"name": "Linux", "aliases": ["Unix"], "learning_hints": "Administer a VPS over SSH: users, systemd, logs."},
+        {"name": "Nginx", "learning_hints": "Reverse-proxy an app with TLS via Let's Encrypt."},
+        {"name": "Monitoring", "aliases": ["Prometheus", "Grafana", "observability"], "learning_hints": "Add metrics and one alerting rule to a demo service."},
+        {"name": "Git", "aliases": ["version control"], "learning_hints": "Practice branching, rebasing and resolving conflicts on a side repo.", "related": ["GitHub"]},
+        {"name": "GitHub", "aliases": ["GitLab", "Bitbucket"], "learning_hints": "Use issues, PR reviews and Actions on a real project."}
+      ]
+    },
+    {
+      "id": "data_analysis",
+      "label": "Data Analysis",
+      "skills": [
+        {"name": "Data Analysis", "aliases": ["data analytics", "analytics"], "learning_hints": "Take one raw dataset to a decision: clean, explore, visualize, conclude.", "related": ["Pandas", "Statistics", "Data Visualization"]},
+        {"name": "Pandas", "learning_hints": "Master groupby, merge and pivot; avoid iteration over rows.", "related": ["Python", "NumPy"]},
+        {"name": "NumPy", "learning_hints": "Rewrite a loop-heavy function with vectorized operations."},
+        {"name": "Data Visualization", "aliases": ["plotting"], "learning_hints": "Choose chart types deliberately; label axes; remove chartjunk.", "related": ["Matplotlib", "Plotly"]},
+        {"name": "Matplotlib", "learning_hints": "Reproduce a published chart from raw data."},
+        {"name": "Seaborn", "learning_hints": "Explore distributions and correlations on a dataset."},
+        {"name": "Plotly", "learning_hints": "Build an interactive dashboard for one dataset."},
+        {"name": "Jupyter", "aliases": ["Jupyter Notebook", "notebooks", "Google Colab"], "learning_hints": "Keep notebooks reproducible: fixed seeds, clear outputs, README."},
+        {"name": "Exploratory Data Analysis", "aliases": ["EDA"], "learning_hints": "Profile missingness, outliers and distributions before modeling."},
+        {"name": "Excel", "aliases": ["spreadsheets"], "learning_hints": "Learn PivotTables and XLOOKUP; know when a script is better."},
+        {"name": "Tableau", "aliases": ["Power BI", "powerbi"], "learning_hints": "Publish one interactive report from a clean dataset."}
+      ]
+    },
+    {
+      "id": "data_engineering",
+      "label": "Data Engineering",
+      "skills": [
+        {"name": "Data Engineering", "aliases": ["data pipelines"], "learning_hints": "Move one dataset end to end: ingest, validate, transform, load, document.", "related": ["ETL", "Apache Spark"]},
+        {"name": "ETL", "aliases": ["ELT", "extract transform load"], "learning_hints": "Write idempotent jobs and add row-count validations."},
+        {"name": "Apache Spark", "aliases": ["PySpark", "pyspark"], "learning_hints": "Process a dataset larger than memory on a local Spark cluster."},
+        {"name": "Apache Airflow", "aliases": ["Airflow", "DAGs", "workflow orchestration"], "learning_hints": "Schedule a small pipeline with retries and alerts."},
+        {"name": "dbt", "aliases": ["data build tool"], "learning_hints": "Model a warehouse with sources, staging and marts."},
+        {"name": "Apache Kafka", "aliases": ["Kafka", "stream processing"], "learning_hints": "Produce/consume events and handle at-least-once semantics."},
+        {"name": "Web Scraping", "aliases": ["BeautifulSoup", "Scrapy", "scraping", "Selenium", "Playwright"], "learning_hints": "Scrape a public site respectfully (robots.txt, rate limits)."},
+        {"name": "Data Cleaning", "aliases": ["data quality", "data validation"], "learning_hints": "Write validation rules (schema, ranges, uniqueness) and enforce them."},
+        {"name": "Snowflake", "learning_hints": "Load semi-structured JSON and query with Snowflake SQL."},
+        {"name": "Databricks", "aliases": ["delta lake", "Delta Lake"], "learning_hints": "Run a notebook pipeline on Delta tables with time travel."}
+      ]
+    },
+    {
+      "id": "mlops",
+      "label": "MLOps & Deployment",
+      "skills": [
+        {"name": "MLOps", "aliases": ["ML engineering", "machine learning engineering", "ML operations"], "learning_hints": "Take one model from notebook to a versioned, monitored API.", "related": ["Model Deployment", "CI/CD", "MLflow"]},
+        {"name": "Model Deployment", "aliases": ["model serving", "deployment", "inference", "inference serving"], "learning_hints": "Containerize a model API and deploy it with a health check."},
+        {"name": "Model Monitoring", "aliases": ["data drift", "concept drift", "drift detection"], "learning_hints": "Log predictions and compare live distributions to training data."},
+        {"name": "MLflow", "learning_hints": "Track experiments, params and artifacts; reproduce the best run."},
+        {"name": "Model Versioning", "aliases": ["DVC", "model registry"], "learning_hints": "Version data and models together so results are reproducible."},
+        {"name": "Experiment Tracking", "aliases": ["Weights & Biases", "W&B"], "learning_hints": "Log every experiment with enough metadata to compare fairly."},
+        {"name": "Feature Store", "aliases": ["Feast"], "learning_hints": "Serve one feature set consistently between training and inference."},
+        {"name": "Model Testing", "aliases": ["ML testing", "model validation"], "learning_hints": "Write behavioral tests: invariants, edge cases, slice metrics."},
+        {"name": "Batch Inference", "aliases": ["batch scoring", "batch prediction"], "learning_hints": "Schedule scoring jobs and validate output schemas."}
+      ]
+    },
+    {
+      "id": "developer_tools",
+      "label": "Developer Tools",
+      "skills": [
+        {"name": "Unit Testing", "aliases": ["pytest", "testing", "test automation"], "learning_hints": "Test business logic first; use fixtures and parametrized cases.", "related": ["Python"]},
+        {"name": "Debugging", "aliases": ["profiling"], "learning_hints": "Learn a real debugger and a profiler; stop print-debugging."},
+        {"name": "Regular Expressions", "aliases": ["regex"], "learning_hints": "Write and test patterns with lookarounds for real parsing tasks."},
+        {"name": "Streamlit", "learning_hints": "Build a small data app with session state and caching.", "related": ["Python", "Data Visualization"]},
+        {"name": "Gradio", "learning_hints": "Wrap a model demo with Gradio and share it."},
+        {"name": "Documentation", "aliases": ["technical writing", "docstrings"], "learning_hints": "Document the 'why' in READMEs and the 'how' in docstrings."},
+        {"name": "VS Code", "aliases": ["Visual Studio Code", "PyCharm", "IDE"], "learning_hints": "Master your IDE debugger, refactoring and task running."},
+        {"name": "Agile", "aliases": ["Scrum", "Kanban", "sprint planning"], "learning_hints": "Run a personal backlog for your projects: small tickets, demos, retros."},
+        {"name": "Code Review", "aliases": ["peer review"], "learning_hints": "Review a friend's PR kindly and concretely; request reviews of yours."}
+      ]
+    }
+  ]
+}
