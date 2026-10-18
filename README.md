@@ -562,3 +562,6 @@ Automated unit tests additionally run via `pytest` (see section 14).
 
 **Repository labels:** Python, Streamlit, NLP, Sentence Transformers,
 Embeddings, RAG, LLM, Pydantic, pytest, Portfolio Project.
+
+<img width="1896" height="905" alt="image" src="https://github.com/user-attachments/assets/e37c3a66-5a6c-47ca-b600-4c34242fb3f8" />
+
