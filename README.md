@@ -16,11 +16,14 @@ in English and Arabic.
 > is computed live from defined inputs; nothing is hard-coded.
 
 ---
-<img width="1896" height="905" alt="image" src="https://github.com/user-attachments/assets/e37c3a66-5a6c-47ca-b600-4c34242fb3f8" />
+<img width="1892" height="903" alt="image" src="https://github.com/user-attachments/assets/fed42d2d-fec5-4cca-8e76-d0e5507f29c7" />
 
-<img width="1912" height="902" alt="image" src="https://github.com/user-attachments/assets/8468fbd9-5853-496e-a1a4-5d8e30aaba06" />
 
-<img width="1305" height="781" alt="image" src="https://github.com/user-attachments/assets/94bfa748-270f-4f66-8e18-3aad749f7b46" />
+<img width="1063" height="770" alt="image" src="https://github.com/user-attachments/assets/fd9bf95f-efd2-4a31-a766-cd95072ba05c" />
+
+
+<img width="1036" height="231" alt="image" src="https://github.com/user-attachments/assets/fbcff5ac-962a-491a-a234-aac359b5ae27" />
+
 
 <img width="1050" height="896" alt="image" src="https://github.com/user-attachments/assets/248b9572-782b-483a-ae1a-6f629a1f12ee" />
 
