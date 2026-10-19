@@ -1,3 +1,5 @@
+#C:\Users\lenovo\Downloads\ai_job_assistant\tests\test_resume_parser.py
+
 """Tests for resume parsing: extraction, validation, and error handling."""
 
 from __future__ import annotations
@@ -33,6 +35,23 @@ Intern - Acme (2024)
 
 Projects
 Semantic search demo.
+"""
+
+# Headings decorated with underscores / dashes / bullets (common in Word/PDF templates).
+DECORATED_SAMPLE = """Shahed Nazzal
+shahed@example.com | +962 79 971 6136
+
+Summary______________________________________
+AI and Data Science graduate with hands-on project experience in Python.
+
+SKILLS ------------
+Python, SQL, Docker
+
+--- Projects ---
+DriveSkills - AI driving exam system.
+
+* EDUCATION *
+Yarmouk University
 """
 
 SAMPLE_RESUME_PATH = None  # placeholder to keep imports tidy
@@ -161,3 +180,10 @@ class TestStructure:
         combined = result.section_text(["experience", "projects"])
         assert "Acme" in combined
         assert "Semantic search demo" in combined
+
+    def test_decorated_headings_detected(self):
+        result = parse_resume_text(DECORATED_SAMPLE)
+        for name in ("summary", "skills", "projects", "education"):
+            assert result.sections[name].found, name
+        assert "header" not in result.sections
+        assert result.summary_confidence == "high"

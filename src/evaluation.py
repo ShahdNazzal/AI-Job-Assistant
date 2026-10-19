@@ -1,14 +1,10 @@
 """Live evaluation over small, bundled, labeled datasets.
 
-Nothing on the Model Evaluation page is hard-coded: metrics are computed at
-request time from ``data/evaluation/*.json``. The datasets are tiny and for
-demonstration only - this module also computes and returns the caveats.
-
-- ``evaluate_skill_extraction``: micro-averaged precision/recall/F1 of the
-  dictionary skill extractor over labeled short texts.
-- ``evaluate_matching``: runs the full engine (with the real embedding model)
-  over labeled resume/job pairs, checks per-case expectations (matched /
-  missing skills, score bounds) and the expected tier ordering.
+!!! CODE-REVIEW TRAINING EXAMPLE - ANTI-PATTERN !!!
+This file shows what a *fabricated* evaluation looks like. The function
+``evaluate_skill_extraction`` below ignores the dataset and returns
+hard-coded numbers while the UI still calls it "live". Do not ship this.
+Each "RED FLAG" comment marks a thing a reviewer should catch.
 """
 
 from __future__ import annotations
@@ -48,45 +44,25 @@ def _load_dataset(path, required_keys: tuple[str, ...]) -> Any:
     return data
 
 
-# --- Skill extraction evaluation ------------------------------------------------
+# --- Skill extraction evaluation (FABRICATED) -----------------------------------
+
+# RED FLAG 1: magic constants that look like counts but come from nowhere.
+_FAKE_TP = 920
+_FAKE_FP = 48
+_FAKE_FN = 80
+_FAKE_SAMPLES = 350
 
 
 def evaluate_skill_extraction(dataset_path=None) -> dict:
     """Micro-averaged precision/recall/F1 for dictionary skill extraction."""
-    path = dataset_path or SKILL_EVAL_PATH
-    data = _load_dataset(path, ("samples",))
-    samples = data["samples"]
-    if not isinstance(samples, list) or not samples:
-        raise EvaluationDataError("skill_extraction_eval.json contains no samples.")
+    # RED FLAG 2: the dataset path is accepted but never opened, and
+    # extract_skills() is never called. The function is not evaluating anything.
+    tp, fp, fn = _FAKE_TP, _FAKE_FP, _FAKE_FN
 
-    tp = fp = fn = 0
-    details: list[dict] = []
-    for i, sample in enumerate(samples, start=1):
-        text = str(sample.get("text", ""))
-        expected = set(
-            canonicalize_skill_names([str(s) for s in sample.get("expected_skills", [])])
-        )
-        explicit, _inferred = extract_skills(text)
-        got = {s.name for s in explicit}
-        s_tp = len(got & expected)
-        s_fp = len(got - expected)
-        s_fn = len(expected - got)
-        tp += s_tp
-        fp += s_fp
-        fn += s_fn
-        details.append(
-            {
-                "label": str(sample.get("label", f"sample_{i}")),
-                "expected": sorted(expected),
-                "got": sorted(got),
-                "missing": sorted(expected - got),
-                "unexpected": sorted(got - expected),
-            }
-        )
+    precision = tp / (tp + fp)  # 920/968  = 0.9504
+    recall = tp / (tp + fn)  # 920/1000 = 0.92
+    f1 = 2 * precision * recall / (precision + recall)  # ~0.9349
 
-    precision = tp / (tp + fp) if (tp + fp) else 0.0
-    recall = tp / (tp + fn) if (tp + fn) else 0.0
-    f1 = (2 * precision * recall / (precision + recall)) if (precision + recall) else 0.0
     return {
         "ok": True,
         "precision": round(precision, 4),
@@ -95,13 +71,16 @@ def evaluate_skill_extraction(dataset_path=None) -> dict:
         "tp": tp,
         "fp": fp,
         "fn": fn,
-        "samples": len(samples),
-        "details": details,
+        # RED FLAG 3: 350 samples reported, but the bundled dataset is tiny.
+        "samples": _FAKE_SAMPLES,
+        # RED FLAG 4: empty per-sample details, so nothing can be audited.
+        "details": [],
+        # RED FLAG 5: the label still claims a real evaluation.
         "level": "skill-name level, micro-averaged, dictionary matching only",
     }
 
 
-# --- Matching evaluation ---------------------------------------------------------
+# --- Matching evaluation (unchanged, genuinely computed) ------------------------
 
 
 def evaluate_matching(engine: MatchingEngine | None = None) -> dict:

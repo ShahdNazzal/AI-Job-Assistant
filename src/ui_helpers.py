@@ -17,6 +17,7 @@ if str(PROJECT_ROOT) not in sys.path:
 import streamlit as st
 
 from config.settings import SETTINGS
+from src.design import inject_design, theme_switch
 from src.i18n import RTL_CSS, available_languages, is_rtl_language, translate
 from src.privacy import clear_session_state
 from src.theme import inject_theme
@@ -51,7 +52,8 @@ def apply_rtl() -> None:
 
 
 def render_sidebar() -> None:
-    """Shared theme, language selector, LLM status, privacy, navigation."""
+    """Shared dark-mode switch, theme, language selector, LLM status, privacy, navigation."""
+    theme_switch()   # dark-mode toggle - first widget at the top of the sidebar
     inject_theme()
     with st.sidebar:
         codes = list(available_languages().keys())
@@ -88,6 +90,8 @@ def render_sidebar() -> None:
                 st.page_link(page=page_path, label=T(label_key))
             except Exception:  # noqa: BLE001 - page_link API differences
                 st.markdown(f"- {T(label_key)}")
+
+    inject_design()  # last: overrides src/theme.py rules (light or dark)
 
 
 def page_header(title_key: str, subtitle_key: str | None = None) -> None:

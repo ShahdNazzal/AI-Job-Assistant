@@ -12,6 +12,7 @@ if str(PROJECT_ROOT) not in sys.path:
 import pandas as pd
 import streamlit as st
 
+from src.design import chips, inject_design, theme_switch, page_header, stat_cards
 from src.i18n import translate
 from src.models import SkillGapItem
 from src.skill_extractor import get_skill_entry
@@ -19,11 +20,14 @@ from src.ui_helpers import T, apply_rtl, render_sidebar, timestamp_slug
 
 st.set_page_config(page_title="Skill Gap Analysis - AI Job Assistant", layout="wide")
 
+theme_switch()  # dark-mode toggle at the top of the sidebar
 render_sidebar()
 apply_rtl()
+inject_design()  # after render_sidebar so it overrides src/theme.py
 
-st.title(T("gap_title"))
-st.caption(T("gap_intro"))
+lang = st.session_state.get("lang", "en")
+
+page_header(T("gap_title"), T("gap_intro"), step=3, lang=lang, icon="🧭")
 
 resume_data = st.session_state.get("resume_data")
 job_data = st.session_state.get("job_data")
@@ -33,8 +37,6 @@ if not (resume_data and job_data and match):
     st.warning(T("err_need_analysis"))
     st.page_link("pages/2_Job_Matching.py", label=T("go_to_matching"))
     st.stop()
-
-lang = st.session_state.get("lang", "en")
 
 
 def importance_for(requirement: str) -> str:
@@ -78,29 +80,42 @@ def build_gap_items() -> list[SkillGapItem]:
 
 
 gap_items = build_gap_items()
-
-st.subheader(T("gap_req_title"))
 req_items = [g for g in gap_items if g.requirement == "required"]
+pref_items = [g for g in gap_items if g.requirement == "preferred"]
+
+stat_cards(
+    [
+        (T("gap_req_title"), len(req_items), "miss" if req_items else "ok"),
+        (T("gap_pref_title"), len(pref_items), "warn" if pref_items else "ok"),
+        (T("matched_skills"), len(match.matched_required) + len(match.matched_preferred), "ok"),
+    ]
+)
+
+# --- Required gaps: one card per skill -------------------------------------------
+st.subheader(f"🔴 {T('gap_req_title')}")
 if req_items:
-    req_df = pd.DataFrame(
-        [
-            {
-                T("col_skill"): g.skill,
-                T("col_category"): g.category_label,
-                T("col_importance"): g.importance,
-                T("col_why"): g.why_it_matters,
-                T("col_learning"): g.learning_direction,
-            }
-            for g in req_items
-        ]
-    )
-    st.dataframe(req_df, use_container_width=True, hide_index=True)
+    for g in req_items:
+        with st.container(border=True):
+            head, tag = st.columns([4, 1])
+            with head:
+                st.markdown(f"#### {g.skill}")
+                st.markdown(
+                    chips([g.category_label], "neutral"), unsafe_allow_html=True
+                )
+            with tag:
+                st.markdown(
+                    chips([g.importance], "miss"), unsafe_allow_html=True
+                )
+            st.markdown(f"**{T('col_why')}**")
+            st.markdown(g.why_it_matters)
+            st.markdown(f"**{T('col_learning')}**")
+            st.success(g.learning_direction)
 else:
     st.success(T("no_gaps"))
 
-pref_items = [g for g in gap_items if g.requirement == "preferred"]
+# --- Preferred gaps: compact table ----------------------------------------------
 if pref_items:
-    st.subheader(T("gap_pref_title"))
+    st.subheader(f"🟡 {T('gap_pref_title')}")
     pref_df = pd.DataFrame(
         [
             {
@@ -118,28 +133,29 @@ st.info(T("honesty_note"))
 
 # --- Transferable ---------------------------------------------------------------
 if match.transferable:
-    st.subheader(T("transferable_title"))
+    st.subheader(f"🔁 {T('transferable_title')}")
     st.caption(T("transferable_note"))
     for t in match.transferable:
-        st.markdown(
-            T(
-                "transferable_item",
-                missing=t.missing_skill,
-                related=", ".join(t.related_skills_you_have),
+        with st.container(border=True):
+            st.markdown(
+                T(
+                    "transferable_item",
+                    missing=t.missing_skill,
+                    related=", ".join(t.related_skills_you_have),
+                )
             )
-        )
 
 # --- Skills needing confirmation -------------------------------------------------
 inferred = resume_data.skills_inferred
 if inferred:
-    st.subheader(T("confirm_title"))
+    st.subheader(f"❓ {T('confirm_title')}")
     st.caption(T("confirm_body"))
-    st.markdown(" ".join(f"`{s.name}`" for s in inferred))
+    st.markdown(chips([s.name for s in inferred], "warn"), unsafe_allow_html=True)
     st.page_link("pages/1_Resume_Analysis.py", label=T("edit_skills"))
 
 # --- Evidence for matched skills --------------------------------------------------
 if match.matched_required or match.matched_preferred:
-    with st.expander(T("gap_evidence_title")):
+    with st.expander(f"🔎 {T('gap_evidence_title')}"):
         explicit_map = {s.name: s for s in resume_data.skills_explicit}
         for name in match.matched_required + match.matched_preferred:
             skill = explicit_map.get(name)
@@ -167,7 +183,7 @@ if gap_items:
         ]
     )
     st.download_button(
-        T("download_gap_csv"),
+        f"⬇️ {T('download_gap_csv')}",
         data=csv_df.to_csv(index=False).encode("utf-8-sig"),
         file_name=f"skill_gaps_{timestamp_slug()}.csv",
         mime="text/csv",

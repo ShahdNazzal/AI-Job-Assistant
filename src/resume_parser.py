@@ -1,3 +1,5 @@
+#C:\Users\lenovo\Downloads\ai_job_assistant\src\resume_parser.py
+
 """Resume parsing: file validation, text extraction (PDF/DOCX/TXT), and
 lightweight structural analysis (sections, name, contact, summary).
 
@@ -38,6 +40,8 @@ SECTION_ALIASES: dict[str, list[str]] = {
     "skills": [
         "skills", "technical skills", "core skills", "key skills",
         "technical proficiency", "competencies", "technologies", "tech stack",
+        "skills & tools", "tools & technologies", "technical expertise",
+        "core competencies",
     ],
     "experience": [
         "experience", "work experience", "professional experience",
@@ -50,13 +54,15 @@ SECTION_ALIASES: dict[str, list[str]] = {
     ],
     "education": [
         "education", "academic background", "academic qualifications",
-        "education and training", "educational background",
+        "education and training", "education & training", "educational background",
     ],
     "certifications": [
         "certifications", "certificates", "licenses",
         "professional development", "courses & certifications",
+        "certifications & courses", "licenses & certifications", "courses",
+        "training",
     ],
-    "languages": ["languages"],
+    "languages": ["languages", "language skills"],
     "awards": ["awards", "honors", "honours", "achievements", "awards & honors"],
     "publications": ["publications", "publications & talks"],
 }
@@ -64,6 +70,9 @@ SECTION_ALIASES: dict[str, list[str]] = {
 _HEADING_LINE_RE = re.compile(
     r"^(?P<title>[A-Za-z][A-Za-z&/ '\-]{1,48})\s*:?\s*$"
 )
+# Leading/trailing decoration around a heading: underscores, dashes, bullets,
+# pipes, box-drawing characters, emoji... e.g. "Summary______", "--- SKILLS ---".
+_DECORATION_RE = re.compile(r"^[\W_]+|[\W_]+$")
 _NAME_FIELD_RE = re.compile(r"^\s*(?:full[\s-]*)?name\s*[:\-]\s*(?P<name>.+)$", re.IGNORECASE)
 
 _EMAIL_RE = re.compile(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}")
@@ -145,9 +154,15 @@ def _extract_txt(data: bytes) -> str:
 # --- Section splitting --------------------------------------------------------
 
 
+def _clean_heading_line(line: str) -> str:
+    """Strip decoration (underscores, dashes, bullets, ...) and collapse spaces."""
+    cleaned = _DECORATION_RE.sub("", line.strip())
+    return re.sub(r"\s+", " ", cleaned)
+
+
 def _canonical_heading(line: str) -> str | None:
     """Return the canonical section name if ``line`` looks like a heading."""
-    stripped = line.strip().rstrip(":").strip()
+    stripped = _clean_heading_line(line)
     if not (2 <= len(stripped) <= 48):
         return None
     match = _HEADING_LINE_RE.match(stripped)

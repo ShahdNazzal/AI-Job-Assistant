@@ -9,9 +9,13 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
+import pandas as pd
+import plotly.express as px
+import plotly.graph_objects as go
 import streamlit as st
 
 from config.settings import SETTINGS, ScoringWeights
+from src.design import chips, inject_design, theme_switch, page_header, stat_cards, style_fig
 from src.exceptions import JobDescriptionError, ModelNotAvailableError
 from src.i18n import rtl_wrap
 from src.job_parser import parse_job_description
@@ -28,11 +32,14 @@ from src.ui_helpers import (
 
 st.set_page_config(page_title="Job Matching - AI Job Assistant", layout="wide")
 
+theme_switch()  # dark-mode toggle at the top of the sidebar
 render_sidebar()
 apply_rtl()
+inject_design()  # after render_sidebar so it overrides src/theme.py
 
-st.title(T("matching_title"))
-st.caption(T("matching_intro"))
+lang = st.session_state.get("lang", "en")
+
+page_header(T("matching_title"), T("matching_intro"), step=2, lang=lang, icon="🎯")
 
 resume_data = st.session_state.get("resume_data")
 if not resume_data:
@@ -40,10 +47,8 @@ if not resume_data:
     st.page_link("pages/1_Resume_Analysis.py", label=T("go_to_resume"))
     st.stop()
 
-lang = st.session_state.get("lang", "en")
-
 # --- Weight controls -----------------------------------------------------------
-with st.expander(T("adjust_weights")):
+with st.expander(f"⚙️ {T('adjust_weights')}"):
     st.caption(T("adjust_weights_help"))
     base = SETTINGS.scoring_weights
     c1, c2 = st.columns(2)
@@ -65,26 +70,29 @@ def _current_weights() -> ScoringWeights:
 
 
 # --- Job description input ------------------------------------------------------
-st.subheader(T("job_label"))
-job_text_value = st.session_state.get("job_input", "")
-demo_col, _ = st.columns([1, 2])
-with demo_col:
-    if st.button(T("load_demo_jd"), key="load_demo_jd_btn"):
-        st.session_state["job_input"] = load_demo_job_text()
-        st.session_state.job_data = None
-        st.session_state.match_result = None
-        st.session_state.recommendations = None
-        st.rerun()
+with st.container(border=True):
+    st.subheader(f"📋 {T('job_label')}")
+    job_text_value = st.session_state.get("job_input", "")
+    demo_col, _ = st.columns([1, 2])
+    with demo_col:
+        if st.button(T("load_demo_jd"), key="load_demo_jd_btn"):
+            st.session_state["job_input"] = load_demo_job_text()
+            st.session_state.job_data = None
+            st.session_state.match_result = None
+            st.session_state.recommendations = None
+            st.rerun()
 
-job_text = st.text_area(
-    T("job_label"),
-    value=job_text_value,
-    height=260,
-    key="job_input",
-    label_visibility="collapsed",
-)
+    job_text = st.text_area(
+        T("job_label"),
+        value=job_text_value,
+        height=260,
+        key="job_input",
+        label_visibility="collapsed",
+    )
 
-analyze_clicked = st.button(T("analyze_btn"), type="primary", key="analyze_btn")
+    analyze_clicked = st.button(
+        f"🚀 {T('analyze_btn')}", type="primary", key="analyze_btn", use_container_width=True
+    )
 
 if analyze_clicked:
     if not job_text or not job_text.strip():
@@ -133,40 +141,72 @@ if job_text and job_text.strip() == load_demo_job_text().strip():
 
 # --- Job requirements overview --------------------------------------------------
 st.divider()
-st.subheader(T("job_overview"))
+st.subheader(f"🧾 {T('job_overview')}")
 
-title_cell = job_data.title or T("not_detected")
-if job_data.title and job_data.title_confidence == "low":
-    title_cell += f" _{T('job_title_low')}_"
-st.markdown(rtl_wrap(f"**{T('job_title_label')}:** {title_cell}", lang), unsafe_allow_html=True)
+with st.container(border=True):
+    title_cell = job_data.title or T("not_detected")
+    if job_data.title and job_data.title_confidence == "low":
+        title_cell += f" _{T('job_title_low')}_"
+    st.markdown(
+        rtl_wrap(f"### {title_cell}", lang),
+        unsafe_allow_html=True,
+    )
+    st.caption(T("job_title_label"))
 
-col_a, col_b, col_c = st.columns(3)
-with col_a:
-    st.markdown(f"**{T('exp_label')}:** "
-                + (T("years_tpl", years=job_data.experience_years_min) if job_data.experience_years_min else T("none_found")))
-with col_b:
-    st.markdown(f"**{T('education_label')}:** " + (", ".join(job_data.education[:3]) or T("none_found")))
-with col_c:
-    st.markdown(f"**{T('certs_label')}:** " + (", ".join(job_data.certifications[:3]) or T("none_found")))
+    col_a, col_b, col_c = st.columns(3)
+    with col_a:
+        st.markdown(
+            f"**{T('exp_label')}**  \n"
+            + (
+                T("years_tpl", years=job_data.experience_years_min)
+                if job_data.experience_years_min
+                else T("none_found")
+            )
+        )
+    with col_b:
+        st.markdown(
+            f"**{T('education_label')}**  \n"
+            + (", ".join(job_data.education[:3]) or T("none_found"))
+        )
+    with col_c:
+        st.markdown(
+            f"**{T('certs_label')}**  \n"
+            + (", ".join(job_data.certifications[:3]) or T("none_found"))
+        )
 
-st.markdown(f"**{T('req_skills_label')}** ({len(job_data.required_skills)})")
-st.markdown(rtl_wrap(" ".join(f"`{s.name}`" for s in job_data.required_skills) or T("none_found"), lang), unsafe_allow_html=True)
-st.markdown(f"**{T('pref_skills_label')}** ({len(job_data.preferred_skills)})")
-st.markdown(rtl_wrap(" ".join(f"`{s.name}`" for s in job_data.preferred_skills) or T("none_found"), lang), unsafe_allow_html=True)
-st.caption(T("req_pref_note"))
+    st.markdown(f"**{T('req_skills_label')}** ({len(job_data.required_skills)})")
+    st.markdown(
+        chips([s.name for s in job_data.required_skills], "neutral", empty=T("none_found")),
+        unsafe_allow_html=True,
+    )
+    st.markdown(f"**{T('pref_skills_label')}** ({len(job_data.preferred_skills)})")
+    st.markdown(
+        chips([s.name for s in job_data.preferred_skills], "muted", empty=T("none_found")),
+        unsafe_allow_html=True,
+    )
+    st.caption(T("req_pref_note"))
 
-if job_data.keywords:
-    st.markdown(f"**{T('keywords_label')}:** " + ", ".join(job_data.keywords))
+    if job_data.keywords:
+        st.markdown(f"**{T('keywords_label')}**")
+        st.markdown(chips(job_data.keywords, "muted"), unsafe_allow_html=True)
 
-if job_data.responsibilities:
-    with st.expander(T("resp_label")):
-        for item in job_data.responsibilities:
-            st.markdown(f"- {item}")
+    if job_data.responsibilities:
+        with st.expander(T("resp_label")):
+            for item in job_data.responsibilities:
+                st.markdown(f"- {item}")
 
 st.divider()
 
 # --- Dashboard ------------------------------------------------------------------
-st.subheader(T("score_section"))
+st.subheader(f"📊 {T('score_section')}")
+
+stat_cards(
+    [
+        (T("matched_skills"), len(match.matched_required), "ok"),
+        (T("missing_skills"), len(match.missing_required), "miss" if match.missing_required else "ok"),
+        (T("preferred"), f"{len(match.matched_preferred)}/{len(match.matched_preferred) + len(match.missing_preferred)}", ""),
+    ]
+)
 
 interp_key = score_interpretation_key(match.overall)
 metric_col, gauge_col = st.columns([1, 2])
@@ -180,36 +220,34 @@ with metric_col:
     for note in match.notes:
         st.caption(f"- {note}")
 with gauge_col:
-    import plotly.graph_objects as go
-
     if match.overall is not None:
         fig = go.Figure(
             go.Indicator(
                 mode="gauge+number",
                 value=round(match.overall * 100, 1),
-                number={"suffix": "%"},
+                number={"suffix": "%", "font": {"size": 46}},
                 gauge={
-                    "axis": {"range": [0, 100]},
-                    "bar": {"color": "#2563EB"},
+                    "axis": {"range": [0, 100], "tickcolor": "#94a3b8"},
+                    "bar": {"color": "#4f46e5", "thickness": 0.28},
+                    "bgcolor": "rgba(0,0,0,0)",
+                    "borderwidth": 0,
                     "steps": [
-                        {"range": [0, 40], "color": "#FEE2E2"},
-                        {"range": [40, 65], "color": "#FEF3C7"},
-                        {"range": [65, 100], "color": "#DCFCE7"},
+                        {"range": [0, 40], "color": "rgba(239,68,68,.20)"},
+                        {"range": [40, 65], "color": "rgba(245,158,11,.22)"},
+                        {"range": [65, 100], "color": "rgba(34,197,94,.22)"},
                     ],
                 },
             )
         )
         fig.update_layout(
-            height=240,
-            margin={"t": 30, "b": 10, "l": 30, "r": 30},
+            height=250,
+            margin={"t": 40, "b": 10, "l": 30, "r": 30},
             title={"text": T("overall_score")},
         )
+        style_fig(fig)
         st.plotly_chart(fig, use_container_width=True, key="gauge_overall")
 
 # Component scores chart
-import pandas as pd
-import plotly.express as px
-
 comp_rows = []
 for comp in match.components:
     comp_rows.append(
@@ -233,19 +271,16 @@ fig_components = px.bar(
     y="component",
     orientation="h",
     color="status",
-    color_discrete_map={"ok": "#2563EB", "unavailable": "#9CA3AF"},
+    color_discrete_map={"ok": "#4f46e5", "unavailable": "#cbd5e1"},
     text_auto=".0f",
     range_x=[0, 100],
     title=T("component_chart"),
     labels={"score": "%", "component": ""},
-    height=260,
+    height=270,
 )
-fig_components.update_layout(margin={"t": 40, "b": 10, "l": 10, "r": 10})
-st.plotly_chart(fig_components, use_container_width=True, key="components_chart")
-
-for comp in match.components:
-    if not comp.available:
-        st.caption(f"**{comp.label}**: {comp.note}")
+fig_components.update_layout(margin={"t": 44, "b": 10, "l": 10, "r": 10}, showlegend=False)
+fig_components.update_traces(marker_cornerradius=8, textposition="outside")
+style_fig(fig_components)
 
 # Skill gap chart
 gap_df = pd.DataFrame(
@@ -267,33 +302,46 @@ fig_gap = px.bar(
     color="state",
     barmode="group",
     color_discrete_map={
-        T("matched_skills"): "#16A34A",
-        T("missing_skills"): "#DC2626",
+        T("matched_skills"): "#16a34a",
+        T("missing_skills"): "#ef4444",
     },
     title=T("gap_chart"),
     labels={"count": "", "type": ""},
-    height=280,
+    height=290,
 )
-fig_gap.update_layout(margin={"t": 40, "b": 10, "l": 10, "r": 10})
-st.plotly_chart(fig_gap, use_container_width=True, key="gap_chart")
+fig_gap.update_layout(margin={"t": 44, "b": 10, "l": 10, "r": 10})
+fig_gap.update_traces(marker_cornerradius=8)
+style_fig(fig_gap)
+
+ch_left, ch_right = st.columns(2)
+with ch_left:
+    st.plotly_chart(fig_components, use_container_width=True, key="components_chart")
+with ch_right:
+    st.plotly_chart(fig_gap, use_container_width=True, key="gap_chart")
+
+for comp in match.components:
+    if not comp.available:
+        st.caption(f"**{comp.label}**: {comp.note}")
 
 # Matched / missing lists
 left_col, right_col = st.columns(2)
 with left_col:
-    st.markdown(f"**{T('matched_skills')}**")
-    st.markdown(
-        rtl_wrap(" ".join(f"`{s}`" for s in match.matched_required) or T("none_found"), lang),
-        unsafe_allow_html=True,
-    )
+    with st.container(border=True):
+        st.markdown(f"**✅ {T('matched_skills')}**")
+        st.markdown(
+            chips(match.matched_required, "ok", empty=T("none_found")),
+            unsafe_allow_html=True,
+        )
 with right_col:
-    st.markdown(f"**{T('missing_skills')}**")
-    st.markdown(
-        rtl_wrap(" ".join(f"`{s}`" for s in match.missing_required) or T("none_found"), lang),
-        unsafe_allow_html=True,
-    )
+    with st.container(border=True):
+        st.markdown(f"**❌ {T('missing_skills')}**")
+        st.markdown(
+            chips(match.missing_required, "miss", empty=T("none_found")),
+            unsafe_allow_html=True,
+        )
 
 if match.transferable:
-    with st.expander(T("transferable_title")):
+    with st.expander(f"🔁 {T('transferable_title')}"):
         for t in match.transferable:
             st.markdown(
                 T(
@@ -304,7 +352,7 @@ if match.transferable:
             )
             st.caption(t.rationale)
 
-with st.expander(T("score_notes")):
+with st.expander(f"📝 {T('score_notes')}"):
     st.markdown(T("weights_used", w_req=match.weights_used.get("required_skills", 0),
                   w_pref=match.weights_used.get("preferred_skills", 0),
                   w_sem=match.weights_used.get("semantic_similarity", 0),
