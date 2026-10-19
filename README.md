@@ -34,6 +34,8 @@ in English and Arabic.
 
 
 
+## Model Evaluation 
+<img width="1332" height="797" alt="image" src="https://github.com/user-attachments/assets/0647386a-10b7-4ba9-812d-ab87f606dfab" />
 
 
 
