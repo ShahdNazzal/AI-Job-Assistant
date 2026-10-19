@@ -17,6 +17,29 @@ in English and Arabic.
 
 ---
 
+## main
+<img width="1892" height="903" alt="image" src="https://github.com/user-attachments/assets/fed42d2d-fec5-4cca-8e76-d0e5507f29c7" />
+
+## ChatBot
+<img width="1268" height="756" alt="image" src="https://github.com/user-attachments/assets/e067010e-208c-44e9-97f8-b627ce5e48eb" />
+
+
+## DashBoaed
+<img width="1063" height="770" alt="image" src="https://github.com/user-attachments/assets/fd9bf95f-efd2-4a31-a766-cd95072ba05c" />
+
+
+
+
+<img width="1036" height="231" alt="image" src="https://github.com/user-attachments/assets/fbcff5ac-962a-491a-a234-aac359b5ae27" />
+
+
+
+## Model Evaluation 
+<img width="1332" height="797" alt="image" src="https://github.com/user-attachments/assets/0647386a-10b7-4ba9-812d-ab87f606dfab" />
+
+
+
+
 ## Table of contents
 
 1. [Project overview](#1-project-overview)
@@ -562,3 +585,5 @@ Automated unit tests additionally run via `pytest` (see section 14).
 
 **Repository labels:** Python, Streamlit, NLP, Sentence Transformers,
 Embeddings, RAG, LLM, Pydantic, pytest, Portfolio Project.
+
+
